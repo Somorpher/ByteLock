@@ -1,5 +1,10 @@
 # Diskryp
 
+### verify hash
+
+ SHA256 Digest.
+> d1d11d1f78544ee59b155e671f80ec880dab27ae1e6189e1a5614f4bcbe75ecd
+
 Functionalities:
 
     Command-Line Interface (CLI) Handling:
