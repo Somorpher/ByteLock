@@ -209,6 +209,19 @@ namespace FSControllerModule
 #define __0x_attr_FSC_drz __attribute__((no_icf, flatten, stack_protect, always_inline, access(read_only, 1), access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
 #define __0x_attr_FSC_cps __attribute__((no_icf, flatten, nothrow, pure, warn_unused_result, no_stack_protector, noipa, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
 #define __0x_attr_FSC_cmb __attribute__((no_icf, flatten, nothrow, stack_protect, zero_call_used_regs("used"), access(write_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_gsptr __attribute__((no_icf, cold, nothrow, always_inline, warn_unused_result, optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_dprf __attribute__((no_icf, nothrow, always_inline, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_cfl __attribute__((no_icf, always_inline, access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_cdir __attribute__((no_icf, always_inline, nothrow, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_cdire __attribute__((no_icf, warn_unused_result, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_dirprf __attribute__((no_icf, cold, warn_unused_result, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_delfl __attribute__((no_icf, always_inline, no_stack_protector, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_cdbk __attribute__((no_icf, cold, warn_unused_result, stack_protect, zero_call_used_regs("used"), access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_dcft __attribute__((cold, warn_unused_result, access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_dirwp __attribute__((cold, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_fssh __attribute__((no_icf, always_inline, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_recaggr __attribute__((hot, nothrow, access(read_only, 1), stack_protect, zero_call_used_regs("used"), optimize(ATTR_OPTIMIZE_LEVEL)))
+#define __0x_attr_FSC_dirbkv __attribute__((no_icf, warn_unused_result, cold, access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL)))
 
 #else
 
@@ -239,6 +252,19 @@ namespace FSControllerModule
 #define __0x_attr_FSC_drz [[nothrow]] // ?
 #define __0x_attr_FSC_cps [[nothrow, nodiscard]]
 #define __0x_attr_FSC_cmb [[nothrow]]
+#define __0x_attr_FSC_gsp [[nothrow]]
+#define __0x_attr_FSC_dprf [[nothrow]]
+#define __0x_attr_FSC_cfl [[]]
+#define __0x_attr_FSC_cdir [[nothrow]]
+#define __0x_attr_FSC_cdire [[]]
+#define __0x_attr_FSC_dirprf [[]]
+#define __0x_attr_FSC_delfl [[]]
+#define __0x_attr_FSC_cdbk [[]]
+#define __0x_attr_FSC_dcft [[]]
+#define __0x_attr_FSC_dirwp [[]]
+#define __0x_attr_FSC_fssh [[]]
+#define __0x_attr_FSC_recaggr [[]]
+#define __0x_attr_FSC_dirbkv [[]]
 
 #endif
 
@@ -768,7 +794,7 @@ namespace FSControllerModule
          * @returns stProfilerStackRegister returns the internal register
          *
          */
-        __attribute__((no_icf, cold, nothrow, always_inline, warn_unused_result, optimize(ATTR_OPTIMIZE_LEVEL))) inline const struct stProfilerStackRegister GetStackPointer(void) noexcept
+        __0x_attr_FSC_gsptr inline const struct stProfilerStackRegister GetStackPointer(void) noexcept
         {
             std::lock_guard<std::mutex> _lock(this->_mtx_guard);
             return this->_profile_stack_reg;
@@ -782,7 +808,7 @@ namespace FSControllerModule
          * @returns void
          *
          */
-        __attribute__((no_icf, nothrow, always_inline, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) inline void DeleteProfile(const _ForeignKeyType_ &_profile_id) noexcept
+        __0x_attr_FSC_dprf inline void DeleteProfile(const _ForeignKeyType_ &_profile_id) noexcept
         {
             std::lock_guard<std::mutex> _lock(this->_mtx_guard);
             this->_profile_stack_reg.eraseProfile(_profile_id);
@@ -796,7 +822,7 @@ namespace FSControllerModule
          * @returns bool if created, true
          *
          */
-        __attribute__((no_icf, always_inline, access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL))) inline const bool CreateFile(const StringView_t &_file_name,
+        __0x_attr_FSC_cfl inline const bool CreateFile(const StringView_t &_file_name,
 
                                                                                                                                                        const StringView_t &_content = "")
         {
@@ -820,7 +846,7 @@ namespace FSControllerModule
          * @returns bool true if directory was created
          *
          */
-        __attribute__((no_icf, always_inline, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) inline const bool CreateDirectory(const StringView_t &_directory)
+        __0x_attr_FSC_cdir inline const bool CreateDirectory(const StringView_t &_directory) noexcept
         {
             std::filesystem::create_directories(_directory);
             return std::filesystem::is_directory(_directory);
@@ -835,7 +861,7 @@ namespace FSControllerModule
          * @returns std::vector<String_t> vector containing entries from _directory scan.
          *
          */
-        __attribute__((no_icf, warn_unused_result, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) const std::vector<String_t> CollectDirectoryEntries(const StringView_t &_directory,
+        __0x_attr_FSC_cdire const std::vector<String_t> CollectDirectoryEntries(const StringView_t &_directory,
                                                                                                                                                              const bool _recursive = false)
         {
             std::vector<String_t> vector_entries;
@@ -916,7 +942,7 @@ namespace FSControllerModule
          * @returns directoryScanResult_t the aggregation
          *
          */
-        __attribute__((no_icf, cold, warn_unused_result, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) const directoryScanResult_t DirectoryProfiler(const StringView_t &path)
+        __0x_attr_FSC_dirprf const directoryScanResult_t DirectoryProfiler(const StringView_t &path)
         {
             directoryScanResult_t scan_result;
 
@@ -938,7 +964,7 @@ namespace FSControllerModule
          * @returns void
          *
          */
-        __attribute__((no_icf, always_inline, no_stack_protector, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) inline static void DeleteFile(const StringView_t &file_name)
+        __0x_attr_FSC_delfl inline static void DeleteFile(const StringView_t &file_name)
         {
             if (file_name.empty())
                 return;
@@ -962,8 +988,7 @@ namespace FSControllerModule
          * @returns bool true if backup was successful
          *
          */
-        __attribute__((no_icf, cold, warn_unused_result, stack_protect, zero_call_used_regs("used"), access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL))) const bool
-        CreateDirectoryBackup(const StringView_t &dir_source, const StringView_t &dir_dest, const bool create_backup_dir = false, const bool dest_override = false, const bool copy_empty_files = false)
+        __0x_attr_FSC_cdbk const bool CreateDirectoryBackup(const StringView_t &dir_source, const StringView_t &dir_dest, const bool create_backup_dir = false, const bool dest_override = false, const bool copy_empty_files = false)
         {
             try
             {
@@ -1028,7 +1053,7 @@ namespace FSControllerModule
          *
          */
         template <typename _lookupReturnType, typename = std::enable_if_t<std::is_same_v<_lookupReturnType, stDirectoryLookup>>>
-        __attribute__((cold, warn_unused_result, access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL))) inline const stDirectoryLookup DirectoryContainsFileType(
+        __0x_attr_FSC_dcft inline const stDirectoryLookup DirectoryContainsFileType(
             const StringView_t &directory, const StringView_t &s_node, const bool recursive_scan = false)
         {
             std::cout << "Used stDirectoryLookup Type!\n";
@@ -1074,7 +1099,7 @@ namespace FSControllerModule
          * @returns void
          * 
          */
-        __attribute__((cold, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) inline void DirectoryWipe(const StringView_t &_directory, const bool force_empty_folder)
+        __0x_attr_FSC_dirwp inline void DirectoryWipe(const StringView_t &_directory, const bool force_empty_folder)
         {
             if (_directory.empty() || !IsDirectory(_directory))
                 return;
@@ -1315,7 +1340,7 @@ namespace FSControllerModule
          * @returns void
          *
          */
-        __attribute__((no_icf, always_inline, access(read_only, 1), optimize(ATTR_OPTIMIZE_LEVEL))) inline void __fileStreamStatusHandle(const StringView_t &_file_name, const bool _create_new,
+        __0x_attr_FSC_fssh inline void __fileStreamStatusHandle(const StringView_t &_file_name, const bool _create_new,
                                                                                                                                          const StringView_t &_buffer = "")
         {
             if (!FileExists(_file_name))
@@ -1342,7 +1367,7 @@ namespace FSControllerModule
          * @returns void
          *
          */
-        __attribute__((hot, nothrow, access(read_only, 1), stack_protect, zero_call_used_regs("used"), optimize(ATTR_OPTIMIZE_LEVEL))) inline void __recursiveAggregation(
+        __0x_attr_FSC_recaggr inline void __recursiveAggregation(
             const StringView_t &_p, directoryScanResult_t &recursive_scan) noexcept {
             if (IsDirectory(_p))
             {
@@ -1373,8 +1398,7 @@ namespace FSControllerModule
          * @returns bool true if same
          * 
          */
-        __attribute__((no_icf, warn_unused_result, cold, access(read_only, 1), access(read_only, 2), optimize(ATTR_OPTIMIZE_LEVEL))) 
-        const bool __directoryBackupVerify(const StringView_t& source, const StringView_t& destination) {
+        __0x_attr_FSC_dirbkv const bool __directoryBackupVerify(const StringView_t& source, const StringView_t& destination) {
             return this->GetDirectorySize(source) == this->GetDirectorySize(destination);
         };
     };
