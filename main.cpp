@@ -67,6 +67,7 @@ __attribute_0x5__ inline static void execute_command(void);
 __attribute_0x6__ static void set_atomic_execution(const bool mode) noexcept;
 __attribute_0x7__ static void encrypt_directory(FSController<string_t>* fsi,ByteCrypt* bci);
 __attribute_0x8__ static void encrypt_file(FSController<string_t>* fsi, ByteCrypt* bci);
+static inline void show_target_content();
 
 enum class OPERATION_MODE : std::uint16_t
 {
@@ -213,7 +214,7 @@ static void print_man_interface() noexcept
                  <<l<<" direct      [true/false]  | true  "<<z<<"|"<<l<<"  false     "<<z<<"|"<<r<<"  silent mode, don't prompt            "<<z<<"|\n"
                  <<l<<" encrypt    ?[...]         | true  "<<z<<"|"<<l<<"  false     "<<z<<"|"<<r<<"  if no arg supplied, encrypt *target* "<<z<<"|\n"
                  <<l<<" decrypt    ?[...]         | true  "<<z<<"|"<<l<<"  false     "<<z<<"|"<<r<<"  if no arg supplied, decrypt *target* "<<z<<"|\n"
-                 <<l<<" contents                  | false "<<z<<"|"<<l<<"  false     "<<z<<"|"<<r<<"  list contents of target path         "<<z<<"|\n\n";
+                 <<l<<" content                  | false "<<z<<"|"<<l<<"  false     "<<z<<"|"<<r<<"  list contents of target path         "<<z<<"|\n\n";
     std::cout << "Examples:\n  set-recursive true\n  set-backup FALSE\n  set-secret secret-key \n  set-target path/to/target  \n\n";
 };
 
@@ -276,6 +277,10 @@ static void prompt_interface(void) noexcept
         return prompt_interface();
     }else if(command.compare("show") == 0){
         print_current_conf_parameters();
+        return prompt_interface();
+    }
+    else if (command.compare("content") == 0){
+        show_target_content();
         return prompt_interface();
     }
     else if(!is_valid_command && (command.find_first_of(" ") == string_t::npos || (command.find_last_of(" ") != command.find_first_of(" "))))
@@ -482,6 +487,24 @@ void encrypt_file(FSController<string_t> *fsi, ByteCrypt *bci)
             {
                 std::cout << "File <" << cli_flags.target_path << "> has been decrypted!\n";
                 return;
+            }
+        }
+    }
+};
+
+inline static void show_target_content() {
+    if(cli_flags.target_path.empty()) {
+        std::cout << "nothing to show...\n";
+    }else{
+        if(FSController<string_t>::IsDirectory(cli_flags.target_path)){
+            FSController FSC;
+
+            const std::vector<string_t> directory_blocks(FSC.CollectDirectoryEntries(cli_flags.target_path, true));
+            if(directory_blocks.size() > 0){
+                for(const auto& block: directory_blocks){
+                    std::this_thread::sleep_for(std::chrono::microseconds(900));
+                    std::cout << "[/] " << block << "\n";
+                }
             }
         }
     }
