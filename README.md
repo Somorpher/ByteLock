@@ -5,6 +5,12 @@
  SHA256 Digest.
 > d1d11d1f78544ee59b155e671f80ec880dab27ae1e6189e1a5614f4bcbe75ecd
 
+For Module 1, 2:
+
+FSController: [FSController](https://github.com/Somorpher/FSController)
+
+ByteCrypt: [ByteCrypt](https://github.com/Somorpher/ByteCrypt)
+
 Functionalities:
 
     Command-Line Interface (CLI) Handling:
