@@ -1,4 +1,6 @@
 # Diskryp
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](#) 
+
 
 FSController: [FSController](https://github.com/Somorpher/FSController)
 
