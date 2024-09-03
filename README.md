@@ -1,48 +1,23 @@
 # Diskryp
 
-### verify hash
-
- SHA256 Digest.
-> d1d11d1f78544ee59b155e671f80ec880dab27ae1e6189e1a5614f4bcbe75ecd
-
-For Module 1, 2:
-
 FSController: [FSController](https://github.com/Somorpher/FSController)
 
 ByteCrypt: [ByteCrypt](https://github.com/Somorpher/ByteCrypt)
 
-Functionalities:
+This C++ code is for a command-line utility that provides file system encryption and decryption capabilities. It's designed to work with both files and directories.
 
-    Command-Line Interface (CLI) Handling:
-        The code allows users to supply various command-line arguments to control the program's execution. Parameters include secret keys, target files or directories for encryption/decryption, backup options, and verbosity of output.
+The code starts by including necessary headers for file system operations and encryption/decryption. It then defines some compiler-specific optimization attributes and constants for things like maximum subset size and secret block size thresholds.
 
-    File and Directory Management:
-        The program can handle both individual files and entire directories. It reads the contents of a specified target, encrypts or decrypts the data, and saves the results either in the same location or, optionally, in a backup directory.
+Next, it defines an enumeration for operation modes (encryption, decryption, or none) and a struct to hold various flags for the utility, such as whether to backup files before encryption, whether to use recursive execution, and so on.
 
-    Encryption and Decryption:
-        It uses an encryption method (Galois/Counter Mode, AES algorithm) to secure data. The user can specify whether to encrypt or decrypt data, and the logic for both processes is built into the respective function calls.
+The main function collects command-line arguments using the GetCLI function, which parses the arguments and sets the corresponding flags. If the direct_execution flag is set and the operation mode is not none, it calls the execute_command function to perform the encryption or decryption.
 
-    User Prompts and Feedback:
-        The application can operate in a direct execution mode, where it skips user prompts for confirmations, or in an interactive mode where the user is prompted for confirmation before actions are taken.
-        Verbose mode provides feedback in the console about the actions being performed, making it easier to track the process flow.
+The GetCLI function takes the command-line arguments and sets the flags accordingly. It also handles cases where the user requests help or wants to exit the program.
 
-    Backup Creation:
-        Before modifying any data, the application can create backups of files or directories, ensuring data safety in case of accidental loss or corruption during the encryption/decryption process.
+The execute_command function performs the actual encryption or decryption. It creates a FSController object to manage file system operations and a ByteCrypt object to handle encryption and decryption. It then checks if the target path is a file or directory and calls the corresponding encryption or decryption function.
 
-    Detailed Commands:
-        Users can input various commands to change settings like whether to run recursively, to show current configurations, or to exit the application.
+The encryption and decryption functions use the gcm algorithm from the ByteCrypt object to encrypt or decrypt the file or directory contents. They also handle errors and exceptions that may occur during the process.
 
-    Error Handling:
-        The code includes mechanisms to handle various runtime errors gracefully, providing feedback to the user when something goes wrong, thus enhancing usability.
+The code also includes several helper functions, such as prompt_path_to_target, prompt_secret_key, and print_current_conf_parameters, which are used to prompt the user for input or print the current configuration parameters.
 
-Intended Uses:
-
-    This application is intended for users who need to secure their data by encrypting files before sharing or storing them, especially sensitive information.
-    It can also serve to reverse the encryption process to regain access to the original data.
-    The backup feature ensures that users can recover their data if needed without losing any original files.
-
-Expected Behavior:
-
-    Upon running the application, users are expected to provide appropriate command-line arguments or interact with the prompt to set parameters for their encryption/decryption tasks.
-    The application will verify provided arguments, like ensuring the presence of a secret key and a target path before proceeding with operations.
-    Appropriate confirmation prompts will guide the user through the process, especially when critical actions are about to be taken, thereby minimizing the risk of unintended data loss.
+The print_man and print_man_interface functions print the manual and interface help screens, respectively. The show_target_content function displays the contents of the target path.
