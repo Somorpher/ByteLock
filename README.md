@@ -1,10 +1,17 @@
 # Diskryp
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](#) 
+
+[![MIT License](https://img.shields.io/badge/License-MIT-orange.svg)](#) 
 
 
 FSController: [FSController](https://github.com/Somorpher/FSController)
 
 ByteCrypt: [ByteCrypt](https://github.com/Somorpher/ByteCrypt)
+
+## Execute from console
+![App Screenshot](https://github.com/Somorpher/Diskrypt/blob/main/images/remove_image_metadata_9a87000841f99aecc78ee21c90c5162e_66c278b6a4795.png)
+
+## Command Options
+![App Screenshot](https://github.com/Somorpher/Diskrypt/blob/main/images/remove_image_metadata_178e06d8f3e02dd5d30b1aaf62a0c2d7_66c278b6a839a.png)
 
 This C++ code is for a command-line utility that provides file system encryption and decryption capabilities. It's designed to work with both files and directories.
 
