@@ -1,6 +1,6 @@
 # Diskrypt: Encryption Software
 
-[![MIT License](https://img.shields.io/badge/License-MIT-orange.svg)](#) 
+[![MIT License](https://img.shields.io/badge/License-MIT-orange.svg)](https://github.com/Somorpher/Diskrypt/blob/main/LICENSE) 
 
 
 FSController: [FSController](https://github.com/Somorpher/FSController)
