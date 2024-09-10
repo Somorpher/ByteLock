@@ -1,4 +1,4 @@
-# Diskrypt: Encryption Software
+# Diskrypt: File/Dir Encryption Software
 
 [![MIT License](https://img.shields.io/badge/License-MIT-orange.svg)](https://github.com/Somorpher/Diskrypt/blob/main/LICENSE) 
 
